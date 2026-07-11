@@ -1,0 +1,79 @@
+import pandas as pd
+df=pd.read_csv("/content/Titanic-Dataset.csv")
+df
+
+# Part D: Data Manipulation (20 Marks)
+# The management wants additional information for reporting.
+
+# 1. Create a new column Family_Size .
+df["Family_Size"]=df["SibSp"]+df["Parch"]
+df
+
+# 2. Create a new column Total_Members .
+df["Total_members"] = df["Family_Size"] + 1
+df
+
+# 3. Create Fare_Per_Person
+df["fare_per_person"]=df["Ticket_Price"] / df["Total_members"]
+df
+
+# 4. Create a column named Passenger_Type .
+# Child (<18)
+# Adult (18–59)
+# Senior (60+)
+
+def check_age(age):
+  if age > 60:
+    return "senior"
+  elif age > 18:
+    return "Adult"
+  else:
+    return "child"
+
+df["Passenger_Type"] = df["Age"].apply(check_age)
+df
+
+# 5. Increase all ticket prices by 10%.
+df["Ticket_Price"] = df["Ticket_Price"] *1.10
+df
+
+# 6. Give an additional 5% increase only to First Class passengers.
+df.loc[df["Passenger_Class"]==1,"Ticket_Price"] *= 1.05
+df
+
+# 7. Delete the Ticket column.
+df=df.drop("Ticket",axis=1)  # this program is run in first but curerently not execute because Ticket column is deleted.
+
+# 8. Sort passengers by ticket price (highest first).
+df.sort_values(by="Ticket_Price",ascending = False)
+
+# 9. Sort passengers by age (youngest first).
+df.sort_values(by="Age",ascending=True)
+
+# 10. Sort by Passenger Class and Ticket Price.
+df.sort_values(by=["Passenger_Class","Ticket_Price"],ascending=[True,False])
+
+# Part E: String Operations (15 Marks)
+# The customer service department wants standardized passenger names.
+
+# 1. Convert all passenger names to uppercase.
+df["Name"]=df["Name"].str.upper()
+df["Name"]
+
+# 2. Convert all passenger names to lowercase.
+df["Name"]=df['Name'].str.lower()
+df["Name"]
+
+# 3. Find all passengers whose names contain "Mr" .
+df.loc[df["Name"].str.contains("Mr.",na=False),"Name"] 
+
+# 4. Find all passengers whose names contain "Mrs" .
+df.loc[df["Name"].str.contains("Mrs",na=False),"Name"]  
+
+# 5. Find all passengers whose names contain "Miss" .
+df.loc[df["Name"].str.contains("Miss",na=False)] 
+# 6. Replace "Mr." with "Mister" .
+df["Name"]=df["Name"].str.replace("Mr.","Mister",regex=False)
+df["Name"]
+
+# 7. Extract passenger titles into a new column.
