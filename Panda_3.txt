@@ -1,0 +1,45 @@
+import pandas as pd
+df=pd.read_csv("/content/Titanic-Dataset.csv")
+df
+
+
+# 7. Fill missing Embarked values using the mode.
+df["Embarked"]=df["Embarked"].fillna(df["Embarked"].mode()[0])
+df["Embarked"]
+
+# 8. Replace missing Cabin values with "Unknown" .
+df["Cabin"]=df["Cabin"].fillna("Unknown")
+df["Cabin"]
+
+# 9. Replace:
+# male → Male
+# female → Female
+df["Sex"]=df["Sex"].replace({
+    "male":"Male",
+    "female":"female"
+})
+df["Sex"]
+
+# 10. Rename columns
+# Pclass → Passenger_Class
+# Fare → Ticket_Price
+df.rename(columns={
+    "Pclass":"Passenger_Class",
+    "Fare":"Ticket_Price"
+},inplace=True
+)
+df
+
+# 11. Check whether duplicate records exist
+df.duplicated().sum()
+
+# 12. Remove duplicate records
+df=df.drop_duplicates()
+df
+
+# 13. Verify that duplicates have been removed
+df.duplicated().sum()
+
+# 14. Save the cleaned dataset as Titanic_Cleaned.csv
+df.to_csv("Titanic_Cleaned.csv",index=False)
+
