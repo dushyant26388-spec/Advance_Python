@@ -1,0 +1,43 @@
+# 7. Calculate total fare collected from each passenger class
+df.groupby("Passenger_Class")["Ticket_Price"].sum()
+
+# 8. Find survival count by gender
+df.groupby("Sex")["Survived"].sum()
+
+# 9. Find average fare by gender
+df.groupby("Sex")["Ticket_Price"].mean()
+
+# 10. Generate a report showing:
+# Count
+# Mean
+# Median
+# Minimum
+# Maximum
+# Standard Deviation
+# for ticket price grouped by passenger class.
+
+df.groupby("Passenger_Class")["Ticket_Price"].agg(
+    ["count","mean","median","min","max","std"])
+
+# Part H: Merge Operations (20 Marks)
+
+# Create the following DataFrames.
+
+import pandas as pd
+# Passenger Insurance
+insurance = pd.DataFrame({
+"PassengerId":[1,2,3,5,8,900],
+"Policy":["Gold","Silver","Gold","Premium","Silver","Gold"]
+})
+
+# Passenger Meal Preference
+meal = pd.DataFrame({
+"PassengerId":[1,2,4,5,7,900],
+"Meal":["Veg","Non-Veg","Veg","Veg","Non-Veg","Veg"]
+})
+
+# 1. Perform an Inner Merge between Titanic and Insurance.
+inner_df=pd.merge(df,insurance,on="PassengerId",how="inner")
+inner_df
+
+# 2. Perform a Left Merge between Titanic and Insurance.
