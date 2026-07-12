@@ -1,0 +1,62 @@
+# 8. Extract passenger surnames into another column.
+df["Surname"]=df["Name"].str.split(',').str[0]
+df["Surname"]
+
+# 9. Count the number of unique passenger titles.
+
+# 10. Display all unique passenger titles.
+
+# Part F: Aggregation Functions (15 Marks)
+# Generate the following reports.
+
+# 1. Total fare collected.
+df["Ticket_Price"].sum()
+
+# 2. Average fare.
+df["Ticket_Price"].mean()
+
+# 3. Median fare.
+df["Ticket_Price"].median()
+
+# 4. Minimum fare.
+df["Ticket_Price"].min()
+
+# 5. Maximum fare
+df["Ticket_Price"].max()
+
+# 6. Standard deviation of fare
+df["Ticket_Price"].std()
+
+# 7. Count total passengers
+df["PassengerId"].count()
+
+# 8. Average passenger age
+df["Age"].mean()
+
+# 9. Highest ticket price
+df["Ticket_Price"].max()
+
+# 10. Lowest ticket price
+df["Ticket_Price"].min()
+
+# Part G: GroupBy Operations (20 Marks)
+# Prepare departmental reports for management.
+
+# 1. Count passengers in each passenger class.
+df.groupby("Passenger_Class")["PassengerId"].count()
+
+# 2. Count passengers by gender
+df.groupby("Sex")["PassengerId"].count()
+
+# 3. Calculate average fare by passenger class.
+df.groupby("Passenger_Class")["Ticket_Price"].mean()
+
+# 4. Calculate average age by passenger class
+df.groupby("Passenger_Class")["Age"].mean()
+
+# 5. Calculate maximum fare by passenger class
+df.groupby("Passenger_Class")["Ticket_Price"].max()
+
+# 6. Calculate minimum fare by passenger class
+df.groupby("Passenger_Class")["Ticket_Price"].min()
+
