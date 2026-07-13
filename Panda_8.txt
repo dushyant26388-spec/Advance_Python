@@ -1,0 +1,50 @@
+# Part I: Concatenation (10 Marks)
+# Create the following DataFrames.
+
+import pandas as pd
+
+# January Bookings
+jan = pd.DataFrame({
+"PassengerId":[1001,1002,1003],
+"Passenger_Name":["Aman","Riya","Karan"]
+})
+
+# February Bookings
+feb = pd.DataFrame({
+"PassengerId":[1004,1005],
+"Passenger_Name":["Neha","Rahul"]
+})
+
+# City Details
+city = pd.DataFrame({
+"City":["Delhi","Mumbai","Pune","Jaipur","Lucknow"]
+})
+
+# 1. Perform vertical concatenation of January and February bookings.
+pd.concat([jan,feb])
+
+# 2. Perform vertical concatenation using ignore_index=True
+pd.concat([jan,feb],ignore_index=True)
+
+# 3. Perform horizontal concatenation of bookings and city details
+pd.concat([pd.concat([jan,feb],ignore_index=True),city],axis=1)
+
+# 4. Display the final concatenated DataFrame
+final_df3=pd.concat(
+    [pd.concat([jan,feb],ignore_index=True),city],axis=1
+)
+final_df3
+
+# 5. Difference between vertical and horizontal concatenation
+
+# Vertical Concatenation
+# Joins rows
+# Uses axis=0 (default)
+# Number of columns should usually match
+# One DataFrame is placed below another
+
+# Horizontal Concatenation
+# Joins columns
+# Uses axis=1
+# Number of rows should usually match
+# One DataFrame is placed beside another
