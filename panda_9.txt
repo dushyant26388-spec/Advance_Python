@@ -1,0 +1,38 @@
+# Part J: DateTime, Apply, Map & Feature
+# Engineering (20 Marks)
+
+# Create a new column named Booking_Date containing random dates from the year 2024.
+import numpy as np
+
+df["Booking_Date"] = np.random.choice(
+    pd.date_range("2024-01-01", "2024-12-31"),
+    size=len(df)
+)
+df["Booking_Date"]
+
+# 1. Convert Booking_Date into datetime format
+df["Booking_Date"]=pd.to_datetime(df["Booking_Date"])
+df["Booking_Date"]
+
+# 2. Extract Year, Month, Day, Month Name, Day Name
+df["Year"]=df["Booking_Date"].dt.year
+df["Year"]
+
+# Month
+df["Month"]=df["Booking_Date"].dt.month
+df["Month"]
+
+# Day
+df["Day"]=df["Booking_Date"].dt.day
+df["Day"]
+
+# Month Name
+df["Month_Name"]=df["Booking_Date"].dt.month_name()
+df["Month_Name"]
+
+# Day Name
+df["Day_Name"]=df["Booking_Date"].dt.day_name()
+df["Day_Name"]
+
+# 3. Create an Age_Group column using apply()
+def agroup()
