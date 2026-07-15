@@ -1,0 +1,37 @@
+# 3. Create an Age_Group column using apply()
+def age_group(age):
+  if age > 60:
+    return "Senior"
+  elif age > 18:
+    return "Adult"
+  else:
+    return "Child"
+
+df["Age_group"]=df["Age"].apply(age_group)
+df["Age_group"]
+
+# 4. Create a Gender_Code column using map()
+df["Gender_Code"]=df["Sex"].map({
+    "Male":1,
+    "Female":0
+})
+# df["Gender_Code"]
+df
+
+# 5. Increase every value in a sample numeric DataFrame using applymap()
+sample=pd.DataFrame({
+    "A":[1,2,3],
+    "B":[4,5,6]
+})
+sample.applymap(lambda x: x + 10)
+
+# 6. Create a Premium_Passenger column using lambda
+df["Premium_Passenger"]=df["Ticket_Price"].apply(
+    lambda x: "Yes" if x > 60 else "No"
+)
+df
+
+# 7. Create Family_Size
+df["Family_size"]=df["SibSp"]+df["Parch"]
+df
+
