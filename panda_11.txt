@@ -1,0 +1,38 @@
+
+#  Load the Titanic dataset.
+import pandas as pd
+df=pd.read_csv("/content/Titanic-Dataset.csv")
+df
+
+
+
+# 7. Create Family_Size
+df["Family_size"]=df["SibSp"]+df["Parch"]
+df
+
+# 8. Create an Is_Alone feature.
+df["Is_Alone"]=df["Family_Size"].apply(
+    lambda x: 1 if x==0 else 0
+
+)
+df
+
+# 9. Create Fare_Per_Person
+
+# this question is solved already .
+
+# 10. Create Fare_Category using bins
+bins=[0,50,100,150,200]
+
+labels=["Low","Medium","High","Premium"]
+
+df["Fare_Category"]=pd.cut(
+    df["Ticket_Price"],
+    bins=bins,
+    labels=labels
+)
+df["Fare_Category"]
+
+# 11. Display the final feature-engineered dataset
+df.head()
+
