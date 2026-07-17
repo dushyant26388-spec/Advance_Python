@@ -1,0 +1,80 @@
+# Part B – Data Visualization (45 Marks)
+
+# Question 1 – Histogram (5 Marks)
+
+# Visualize the distribution of the Average Daily Rate (ADR).
+# Requirements
+# Use 30 bins.
+# Display the KDE curve.
+# Customize the plot with an appropriate title, axis labels, and color.
+
+# Answer the following:
+# 1. Is the distribution normally distributed?
+# 2. Is it positively or negatively skewed?
+# 3. Are there any unusually high room prices?
+
+plt.figure(figsize=(10,6))
+
+sns.histplot(
+    data=df,
+    x="adr",
+    bins=30,
+    kde=True,
+    color="skyblue"
+)
+plt.title("Distribution of the Average Daily Rate")
+plt.xlabel("Average Daily Rate (ADR)")
+plt.ylabel("Frequency")
+
+plt.show()
+
+# Question 2 – KDE Plot (5 Marks)
+
+# Create a KDE plot for Lead Time.
+
+# Requirements
+# Fill the density curve.
+# Use an attractive color.
+# Add a title.
+
+plt.figure(figsize=(8,4))
+
+sns.kdeplot(
+    data=df,
+    x="lead_time",
+    fill=True,
+    color="teal"
+)
+plt.title("KDE plot of Lead Time")
+plt.xlabel("Lead time (Days)")
+plt.ylabel("Density")
+
+plt.show()
+
+# Question 3 – Scatter Plot (6 Marks)
+# Visualize the relationship between Lead Time and ADR.
+# Requirements
+
+# Color the points based on Booking Cancellation Status ( is_canceled ).
+# Use different marker styles for Hotel Type ( hotel ).
+# Represent Total Special Requests using marker size.
+# Add legend, title, and axis labels.
+
+plt.figure(figsize=(12,7))
+sns.scatterplot(
+    data=df,
+    x="lead_time",
+    y="adr",
+    hue="is_canceled",
+    style="hotel",
+    size="total_of_special_requests",
+    sizes=(20,200),
+    alpha=0.7
+)
+
+plt.title("Lead Time vs ADR")
+plt.xlabel("Lead Time (Days)")
+plt.ylabel("Average Daily Rate (ADR)")
+plt.legend(title="legend",bbox_to_anchor=(1.05,1),loc="upper left")
+
+plt.show()
