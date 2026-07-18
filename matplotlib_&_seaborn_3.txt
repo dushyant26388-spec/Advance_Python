@@ -1,0 +1,47 @@
+# Question 4 – Box Plot (5 Marks)
+
+# Create a box plot comparing ADR across different Hotel Types.
+# Requirements
+
+# Use a suitable color palette.
+# Add proper labels and title.
+
+plt.figure(figsize=(8,6))
+sns.boxplot(
+    data=df,
+    x="hotel",
+    y="adr",
+    palette="Set2"
+)
+
+plt.title("ADR Distribution by Hotel Type")
+plt.xlabel("Hotel Type")
+plt.ylabel("Average Daily Rate (ADR)")
+
+plt.show()
+
+
+
+# Question 5 – Violin Plot (5 Marks)
+# Create a violin plot showing the distribution of Lead Time for different Customer Types.
+
+# Requirements
+
+# Differentiate bookings using is_canceled .
+# Add title and legend.
+
+plt.figure(figsize=(10,6))
+sns.violinplot(
+    data=df,
+    x="customer_type",
+    y="lead_time",
+    hue="is_canceled",
+    palette="Set2",
+    split=True
+)
+
+plt.title("Lead Time Distribution by Customer Type")
+plt.xlabel("Customer Type")
+plt.ylabel("Lead Time (Days)")
+plt.legend(title="Is Canceled")
+plt.show()
