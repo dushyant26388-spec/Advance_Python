@@ -1,0 +1,69 @@
+# Question 6 – Count Plot (5 Marks)
+
+# Create a count plot showing the number of bookings made by each Market Segment.
+# Requirements
+# Use is_canceled as the hue.
+# Rotate axis labels if necessary.
+
+plt.figure(figsize=(12,6))
+sns.countplot(
+    data=df,
+    x = "market_segment",
+    hue = "is_canceled",
+    palette = "Set2"
+)
+
+plt.title(" Number of bookings by Market Segment")
+plt.xlabel("Market Segment")
+plt.ylabel("Number of bookings")
+
+plt.xticks(rotation = 45)
+plt.legend(title="Is canceled")
+
+plt.show()
+
+# Question 7 – Bar Plot (5 Marks)
+# Create a bar plot showing the average ADR for each Meal Type.
+
+# Requirements
+# Choose a suitable color palette.
+# Add title and labels.
+
+plt.figure(figsize=(8,6))
+
+sns.barplot(
+    data=df,
+    x="meal",
+    y="adr",
+    palette="Set2"
+)
+
+plt.title("Average ADR by Meal Type")
+plt.xlabel("Meal Type")
+plt.ylabel("Average Daily Rate (ADR)")
+
+plt.show()
+
+# Question 8 – Correlation Heatmap (5 Marks)
+
+# Create a correlation heatmap using all numerical features.
+
+# Requirements
+# Display correlation values.
+# Use the coolwarm color palette.
+# Increase figure size for better readability.
+
+plt.figure(figsize=(14,9))
+
+numerical=df.select_dtypes("number").corr()
+
+sns.heatmap(
+    numerical,
+    annot=True,
+    cmap="coolwarm",
+    fmt=".2f"
+)
+
+plt.title("Correlation Heatmap of Numerical Features")
+
+plt.show()
