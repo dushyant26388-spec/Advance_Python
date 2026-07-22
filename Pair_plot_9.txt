@@ -1,0 +1,26 @@
+# Question 9 – Pair Plot (4 Marks)
+
+# Create a pair plot using the following numerical columns:
+# Lead Time
+# ADR
+# Adults
+# Children
+# Total Special Requests
+# Use Booking Cancellation Status ( is_canceled ) as the hue.
+
+sns.pairplot(
+    df[
+        [
+            "lead_time",
+            "adr",
+            "adults",
+            "children",
+            "total_of_special_requests",
+            "is_canceled"
+        ]
+    ],
+    hue="is_canceled",
+    diag_kind='hist'
+)
+
+plt.show()
