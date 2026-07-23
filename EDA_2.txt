@@ -1,0 +1,54 @@
+import numpy as np
+import pandas as pd
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Step 3 – Load Dataset
+
+df=pd.read_csv("/content/used_cars.csv")
+df
+
+# Check First 5 Rows
+df.head(5)
+
+# Check Last 5 Rows
+df.tail(5)
+
+# Random Records
+df.sample(5)
+
+# Dataset Shape
+df.shape
+
+# Step 4 – Understanding Features & Data Types
+df.info()
+
+df.dtypes
+
+df.columns
+
+# Count Total Columns
+len(df.columns)
+
+numeric_column=df.select_dtypes(include="number").columns
+numeric_column
+
+categorical_column=df.select_dtypes(include="object").columns
+categorical_column
+
+# Number of Numerical Features
+len(numeric_column)
+
+# Number of Categorical Features
+len(categorical_column)
+
+# Unique Values in Every Column
+df.nunique()
+
+# Unique Values of One Column
+df["fuel_type"].unique()
+
+# Statistical Summary
+df.describe().T    # .T use for convert data into tabular form
+
