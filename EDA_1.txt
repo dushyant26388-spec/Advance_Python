@@ -1,0 +1,48 @@
+# Handling Missing Values
+# 1. Check Missing Values
+df.isnull().sum()
+
+# 2. Check Missing Value Percentage
+missing_percentage=(df.isnull().sum() / len(df) * 100)
+missing_percentage.round(2)
+
+# 3. Fill Missing Values
+df["fuel_type"]=df["fuel_type"].fillna(df["fuel_type"].mode()[0])
+df["fuel_type"]
+
+df["accident"]=df["accident"].fillna(df["accident"].mode()[0])
+df["accident"]
+
+df["clean_title"]=df["clean_title"].fillna(df["clean_title"].mode()[0])
+df["clean_title"]
+
+# Verify Missing Values
+df.isnull().sum()
+
+# Handling Duplicate Data
+# 1. Check Duplicate Records
+df.duplicated().sum()
+
+# 2. Display Duplicate Records (Optional)
+df[df.duplicated()]
+
+# 3. Remove Duplicate Records
+df=df.drop_duplicates()
+
+# 4. Verify Duplicates
+df.duplicated().sum()
+
+# Data Cleaning
+# 1. Check Current Data Types
+df.dtypes
+
+# 2. Clean price Column
+df["price"]=df["price"].str.replace("[$,]","",regex=True)
+df["price"].astype(int)
+
+# 3. Clean milage Column
+df["milage"]=df["milage"].str.replace("[,mi.]","",regex=True)
+df["milage"].astype(int)
+
+# 4. Verify Data Types
+df.dtypes
