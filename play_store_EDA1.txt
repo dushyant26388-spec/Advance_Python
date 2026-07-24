@@ -1,0 +1,43 @@
+# Section A – Dataset Understanding (10 Marks)
+
+# Task 1
+# Load the dataset into a Pandas DataFrame.
+
+import pandas as pd
+import numpy as np
+
+df=pd.read_csv("/content/googleplaystore.csv")
+df
+
+# Display the first 10 and last 10 records.
+df.head(10)
+
+df.tail(10)
+
+# Number of Rows
+df.shape[0]
+
+# Number of Columns
+df.shape[1]
+
+# Column Names
+df.columns
+
+# Data Types
+df.dtypes
+
+# Identify all numerical and categorical features.
+numerical_columns=df.select_dtypes(include="number").columns
+numerical_columns
+
+categorical_columns=df.select_dtypes(include="object").columns
+categorical_columns
+
+# Generate descriptive statistics for both numerical and categorical columns.
+df.describe()
+
+# Determine the total memory consumed by the dataset.
+df.memory_usage().sum()
+
+
+
