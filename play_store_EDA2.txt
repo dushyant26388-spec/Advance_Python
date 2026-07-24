@@ -1,0 +1,74 @@
+# Section B – Data Cleaning & Preprocessing
+#  (20 Marks)
+
+# Task 1
+# Identify missing values in every column.
+
+df.isnull().sum()
+
+# Remove duplicate records, if any.
+df.drop_duplicates(inplace=True)
+
+df.duplicated().sum() # verify duplicate or check
+
+# Task 3: Clean and Convert Columns
+# (A) Reviews
+
+df["Reviews"]=pd.to_numeric(df["Reviews"],errors="coerce")
+df["Reviews"]
+
+# (B) Installs
+df["Installs"] = df["Installs"].str.replace(",", "", regex=False)
+df["Installs"] = df["Installs"].str.replace("+", "", regex=False)
+
+print(df["Installs"].head())
+
+df["Installs"]=pd.to_numeric(df["Installs"],errors="coerce")
+df["Installs"]
+
+# (C) Size
+df["Size"]=df["Size"].replace("Varies with device",np.nan)
+
+df["Size"]=pd.to_numeric(df["Size"],errors="coerce")   # size object dtype change to numeric
+
+# (D) Price
+df["Price"]=pd.to_numeric(df["Price"],errors="coerce")
+
+# Task 4: Convert Last Updated into DateTime
+df["Last Updated"]=pd.to_datetime(df["Last Updated"],errors="coerce")
+
+# Task 5: Handle Missing Values
+# Rating
+
+df["Rating"].fillna(df["Rating"].median(),inplace=True)
+
+# reviews
+df["Reviews"].fillna(df["Reviews"].median(),inplace=True)
+
+# installs
+df["Installs"].fillna(df["Installs"].median(),inplace=True)
+
+# price
+df["Price"].fillna(df["Price"].median(),inplace=True)
+
+# type
+df["Type"].fillna(df["Type"].mode()[0],inplace=True)
+
+# Current Ver
+df["Current Ver"].fillna(df["Current Ver"].mode()[0],inplace=True)
+
+# Android Ver
+df["Android Ver"].fillna(df["Android Ver"].mode()[0],inplace=True)
+
+df["Content Rating"].fillna(df["Content Rating"].mode()[0],inplace=True)
+
+df["Last Updated"].fillna(df["Last Updated"].mode()[0],inplace=True)
+
+# Task 6: Remove Invalid Ratings
+df = df[(df["Rating"] >= 0) & (df["Rating"] <= 5)]
+
+# check rating after correction
+df[(df["Rating"] < 0) | (df["Rating"] > 5)]
+
+# Task 7: Verify Data Types
+df.info()
