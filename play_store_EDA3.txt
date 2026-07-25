@@ -1,0 +1,39 @@
+# Task 7: Verify Data Types
+df.info()
+
+# Section C – Univariate Analysis (15 Marks)
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+sns.set_style("whitegrid")
+
+# 1. Distribution of App Ratings
+
+plt.figure(figsize=(8,5))
+sns.histplot(df["Rating"],bins=20,kde=True)
+
+plt.title("Distribution of App Ratings")
+plt.xlabel("Rating")
+plt.ylabel("count")
+
+plt.show()
+
+# 2. Distribution of Reviews
+plt.figure(figsize=(8,5))
+
+sns.histplot(df["Reviews"], bins=30)
+plt.title("Distribution of Reviews")
+plt.xlabel("Reviews")
+plt.ylabel("Count")
+
+plt.show()
+
+# Distribution of Installs
+plt.figure(figsize=(8,5))
+sns.histplot(df["Installs"],bins=30)
+plt.title("Distribution of Installs")
+plt.xlabel("Installs")
+plt.ylabel("Count")
+
+plt.show()
