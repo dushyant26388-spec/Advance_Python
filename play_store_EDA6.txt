@@ -1,0 +1,24 @@
+# Section E – Multivariate Analysis (10 Marks)
+# Task 1: Correlation Heatmap
+# Select Numerical Columns
+num_df = df[["Rating", "Reviews", "Installs", "Price", "Size"]]
+
+# Correlation Matrix
+corr = num_df.corr()
+
+plt.figure(figsize=(8,6))
+sns.heatmap(corr,
+            annot=True,
+            cmap="coolwarm",
+            fmt=".2f",
+            linewidths=0.5)
+
+plt.title("Correlation Heatmap")
+plt.show()
+
+# Task 2: Pair Plot
+sns.pairplot(
+    df[["Rating", "Reviews", "Installs", "Price", "Size"]]
+)
+plt.show()
+
