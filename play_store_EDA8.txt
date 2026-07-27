@@ -1,0 +1,67 @@
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.figure(figsize=(22,18))
+
+# 1. Rating Distribution
+plt.subplot(4,3,1)
+sns.histplot(df["Rating"], kde=True)
+plt.title("Rating Distribution")
+
+# 2. Reviews Distribution
+plt.subplot(4,3,2)
+sns.histplot(df["Reviews"])
+plt.title("Reviews Distribution")
+
+# 3. Installs Distribution
+plt.subplot(4,3,3)
+sns.histplot(df["Installs"])
+plt.title("Installs Distribution")
+
+# 4. Top 10 Categories
+plt.subplot(4,3,4)
+top_cat = df["Category"].value_counts().head(10)
+sns.barplot(x=top_cat.values, y=top_cat.index)
+plt.title("Top 10 Categories")
+
+# 5. Free vs Paid Apps
+plt.subplot(4,3,5)
+df["Type"].value_counts().plot(kind="pie", autopct="%1.1f%%")
+plt.title("Free vs Paid")
+plt.ylabel("")
+
+# 6. Content Rating
+plt.subplot(4,3,6)
+content = df["Content Rating"].value_counts()
+sns.barplot(x=content.values, y=content.index)
+plt.title("Content Rating")
+
+# 7. Top Revenue Categories
+plt.subplot(4,3,7)
+revenue = df.groupby("Category")["Estimated Revenue"].sum().sort_values(ascending=False).head(10)
+sns.barplot(x=revenue.values, y=revenue.index)
+plt.title("Revenue by Category")
+
+# 8. Average Rating by Category
+plt.subplot(4,3,8)
+avg_rating = df.groupby("Category")["Rating"].mean().sort_values(ascending=False).head(10)
+sns.barplot(x=avg_rating.values, y=avg_rating.index)
+plt.title("Average Rating")
+
+# 9. Reviews vs Rating
+plt.subplot(4,3,9)
+sns.scatterplot(x="Reviews", y="Rating", data=df)
+plt.title("Reviews vs Rating")
+
+# 10. Correlation Heatmap
+plt.subplot(4,3,10)
+sns.heatmap(
+    df[["Rating","Reviews","Installs","Price","Size"]].corr(),
+    annot=True,
+    cmap="coolwarm",
+    fmt=".2f"
+)
+plt.title("Correlation")
+
+plt.tight_layout()
+plt.show()
