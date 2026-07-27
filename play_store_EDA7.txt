@@ -1,0 +1,176 @@
+# Section F – Feature Engineering (10 Marks)
+# Task 1: Estimated Revenue
+df["Estimated Revenue"] = df["Price"] * df["Installs"]
+
+# Task 2: Create a Popularity Column
+median_reviews = df["Reviews"].median()
+
+df["Popularity"] = np.where(
+    df["Reviews"] > median_reviews,
+    "Popular",
+    "Less Popular"
+)
+
+# Task 4: Create Install Groups
+df["Install Group"] = pd.cut(
+    df["Installs"],
+    bins=[0, 10000, 100000, 1000000, float("inf")],
+    labels=[
+        "Below 10K",
+        "10K - 100K",
+        "100K - 1M",
+        "Above 1M"
+    ]
+)
+
+# Section G – Business Analysis (15 Marks)
+# 1. Which application category has the highest number of apps?
+top_category = df["Category"].value_counts()
+
+plt.figure(figsize=(10,5))
+sns.barplot(x=top_category.index, y=top_category.values)
+plt.xticks(rotation=90)
+plt.title("Number of Apps by Category")
+plt.xlabel("Category")
+plt.ylabel("Number of Apps")
+plt.show()
+
+print(top_category.head())
+
+# 2. Which category has the highest average rating?
+avg_rating = (
+    df.groupby("Category")["Rating"]
+    .mean()
+    .sort_values(ascending=False)
+)
+
+plt.figure(figsize=(10,5))
+sns.barplot(x=avg_rating.index, y=avg_rating.values)
+plt.xticks(rotation=90)
+plt.title("Average Rating by Category")
+plt.xlabel("Category")
+plt.ylabel("Average Rating")
+plt.show()
+
+print(avg_rating.head())
+
+# 3. Which category receives the highest number of installs?
+install_category = (
+    df.groupby("Category")["Installs"]
+    .sum()
+    .sort_values(ascending=False)
+)
+
+plt.figure(figsize=(10,5))
+sns.barplot(x=install_category.index, y=install_category.values)
+plt.xticks(rotation=90)
+plt.title("Total Installs by Category")
+plt.xlabel("Category")
+plt.ylabel("Total Installs")
+plt.show()
+
+print(install_category.head())
+
+# 4. Which categories have the highest customer engagement?
+engagement = (
+    df.groupby("Category")["Reviews"]
+    .sum()
+    .sort_values(ascending=False)
+)
+
+plt.figure(figsize=(10,5))
+sns.barplot(x=engagement.index, y=engagement.values)
+plt.xticks(rotation=90)
+plt.title("Customer Engagement by Category")
+plt.xlabel("Category")
+plt.ylabel("Total Reviews")
+plt.show()
+
+print(engagement.head())
+
+# 5. Which paid application generates the highest estimated revenue?
+paid_apps = df[df["Type"] == "Paid"]
+
+highest_revenue = paid_apps.sort_values(
+    by="Estimated Revenue",
+    ascending=False
+)
+
+print(highest_revenue[
+    ["App", "Price", "Installs", "Estimated Revenue"]
+].head(10))
+
+top10 = highest_revenue.head(10)
+
+plt.figure(figsize=(10,5))
+sns.barplot(
+    x="Estimated Revenue",
+    y="App",
+    data=top10
+)
+
+plt.title("Top 10 Paid Apps by Estimated Revenue")
+plt.show()
+
+# 6. Do paid applications generally receive better ratings than free applications?
+plt.figure(figsize=(6,5))
+sns.boxplot(x="Type", y="Rating", data=df)
+
+plt.title("Free vs Paid Ratings")
+plt.show()
+
+print(df.groupby("Type")["Rating"].mean())
+
+# 7. Does a higher application price reduce the number of installs?
+plt.figure(figsize=(8,5))
+sns.scatterplot(
+    x="Price",
+    y="Installs",
+    data=df
+)
+
+plt.title("Price vs Installs")
+plt.show()
+
+# 8. Is there any relationship between application size and rating?
+plt.figure(figsize=(8,5))
+sns.scatterplot(
+    x="Size",
+    y="Rating",
+    data=df
+)
+
+plt.title("Size vs Rating")
+plt.show()
+
+# 9. Which content rating category contains the largest number of applications?
+content = df["Content Rating"].value_counts()
+
+plt.figure(figsize=(8,5))
+sns.barplot(
+    x=content.index,
+    y=content.values
+)
+
+plt.xticks(rotation=45)
+plt.title("Content Rating Distribution")
+plt.show()
+
+print(content)
+
+# 10. Which Android version supports the maximum number of applications?
+android = df["Android Ver"].value_counts()
+
+plt.figure(figsize=(10,5))
+sns.barplot(
+    x=android.head(10).index,
+    y=android.head(10).values
+)
+
+plt.xticks(rotation=45)
+plt.title("Top Android Versions")
+plt.xlabel("Android Version")
+plt.ylabel("Number of Apps")
+plt.show()
+
+print(android.head(10))
