@@ -1,0 +1,108 @@
+# Section A – Dataset Understanding (10 Marks)
+
+# Task 1: Load the Dataset into a Pandas DataFrame
+import numpy as np
+import pandas as pd
+
+df=pd.read_csv("/content/netflix_titles.csv")
+df
+
+# Task 2: Display the First 10 and Last 10 Records
+df.head(10)
+
+df.tail(10)
+
+# Task 3: Find Dataset Information
+# 1. Dataset Shape
+df.shape
+
+# 2. Number of Rows
+df.shape[0]
+
+# 3. Number of Columns
+df.shape[1]
+
+# 4. Column Names
+df.columns
+
+# 5. Data Types
+df.dtypes
+
+# Task 4: Separate Numerical and Categorical Columns
+numerical_columns=df.select_dtypes(include="number")
+numerical_columns
+
+categorical_columns=df.select_dtypes(include="object")
+categorical_columns
+
+# Task 5: Generate Descriptive Statistics
+df.describe()
+
+# Task 6: Find Total Memory Usage of the Dataset
+df.memory_usage()
+
+# Section B – Data Cleaning & Preprocessing (20 Marks)
+
+# Task 1
+# Identify missing values in every column.
+
+df.isnull().sum()
+
+# Task 2: Remove Duplicate Records
+df.duplicated().sum()
+
+# Task 3: Handle Missing Values Using Suitable Techniques
+# Fill Missing Director
+
+df["director"]=df["director"].fillna("Unknown")
+
+# Fill Missing Cast
+
+df["cast"]=df["cast"].fillna("not available")
+
+# Fill Missing Country
+df["country"]=df["country"].fillna(df["country"].mode()[0])
+
+# Fill Missing Rating
+df["rating"]=df["rating"].fillna(df["rating"].mode()[0])
+
+df = df.dropna(subset=["date_added"])
+
+df["duration"]=df["duration"].fillna(df["duration"].mode()[0])
+
+# Task 4: Convert the Date Added Column into DateTime Format
+df["date_added"] = pd.to_datetime(df["date_added"], errors="coerce")
+
+# Task 5: Extract New Columns
+# Added Year
+df["added_year"]=df["date_added"].dt.year
+
+# Added Month
+df["added_month"]=df["date_added"].dt.month
+
+# Added Day
+
+df["added_day"]=df["date_added"].dt.day
+
+# Task 6: Check for Inconsistent or Invalid Values in Categorical Columns
+# Check Unique Values
+
+for col in categorical_columns:
+    print("\n", col)
+    print(df[col].unique())
+
+# Count Unique Values
+for col in categorical_columns:
+  print("\n",col)
+  print(df[col].value_counts())
+
+# Remove Extra Spaces
+for col in categorical_columns:
+  df[col]=df[col].str.strip()
+
+# Check Again
+
+for col in categorical_columns:
+    print("\n", col)
+    print(df[col].value_counts().head())
+
